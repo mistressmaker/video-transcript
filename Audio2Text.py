@@ -31,6 +31,9 @@ def main():
                         help='the file to be transcripted')
     args = parser.parse_args()
     myPath = os.path.normpath(args.FilePath[0])
+    filename, ext = os.path.splitext(myPath)
+    splitFile = filename.split('/')
+    outputFile = splitFile[-1] + '.txt'
     
     fileInfo = mi.parse(myPath)
     videoFlag = False
@@ -51,7 +54,7 @@ def main():
         try:
             print('Converting audio to text...')
             text = r.recognize_google(audioText)
-            text_file = open("output.txt", "w")
+            text_file = open(outputFile, "w")
             text_file.write(text)
             text_file.close()
             
